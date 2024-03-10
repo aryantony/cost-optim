@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>RideSharing Truck</title>
+  </head>
+
+  <body>
+    <div class="multiple-booking-capacity-container d-none">
+      <div class="capacity-content">
+        <div class="city-between">Capacity Of Your Load</div>
+        <input placeholder="Please write in KG" />
+        <div class="submit-button">Submit</div>
+      </div>
+    </div>
+    <div class="per-km-price yellow">Rs. 100/KM</div>
+    <div class="capacity-truck-total yellow"></div>
+    <div class="actual-price-cut d-none fareDecided">2000</div>
+    <div class="total-fare-decided">
+      <span class="tot yellow">
+        Total Fare city
+        <span class="red border-r50">A</span>
+        to city
+        <span class="green border-r50">K</span>
+        is:
+      </span>
+      Rs.
+      <span class="a-to-k-cost">2000</span>
+    </div>
+    <!-- <div class="total-distance-decided"><span class="yellow"> city <span class="red border-r50">A</span> to city <span class="green border-r50">K</span> is:</span><span class="a-to-k-cost">10 KM </span></div> -->
+    <div class="discount-got d-none"></div>
+    <div class="custom-container">
+      <div class="phase-1">
+        <div class="question">What is the capacity of Truck ?</div>
+        <input placeholder="Please write in KG" class="ans" />
+        <div class="submit-button">Submit</div>
+      </div>
+      <div class="phase-2 d-none">
+        <div class="question">Number of Bookings between city K to city A?</div>
+        <div class="submit-button" data-value="0">0 (No Booking)</div>
+        <div class="submit-button" data-value="1">1 (One Booking)</div>
+        <div class="submit-button" data-value="2">Multiple Bookings</div>
+      </div>
+      <div class="phase-3 d-none">
+        <div class="booking0 d-none red">Hey Sorry Your Total Fare Can't reduced;</div>
+        <div class="booking1 d-none">
+          Choose Your Starting and Ending Loaction
+          <div class="location">
+            <div>A</div>
+            <div>B</div>
+            <div>C</div>
+            <div>D</div>
+            <div>E</div>
+            <div>F</div>
+            <div>G</div>
+            <div>H</div>
+            <div>I</div>
+            <div>J</div>
+            <div>K</div>
+          </div>
+          <div class="reverse-fair"></div>
+        </div>
+
+        <div class="booking2 d-none">
+          <div class="multiple-booking-div">
+            <div class="question">Total Number of Bookings ?</div>
+            <input placeholder="Please write the count" class="total-multiple-bookings" />
+            <div class="submit-button">Submit</div>
+          </div>
+          <div class="multiple-booking-city-choose d-none">
+            <div>Please select city for each Booking</div>
+            <div class="multiple-booking-location">
+              <div>Booking - 1</div>
+              <div class="location">
+                <div>A</div>
+                <div>B</div>
+                <div>C</div>
+                <div>D</div>
+                <div>E</div>
+                <div>F</div>
+                <div>G</div>
+                <div>H</div>
+                <div>I</div>
+                <div>J</div>
+                <div>K</div>
+              </div>
+              <div class="choosen-location d-none"></div>
+              <div class="choosen-capacity d-none"></div>
+              <div class="price-for-this-distance d-none"></div>
+              <div class="loader d-none"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phase-4 d-none">
+        <div class="booking1 d-none"></div>
+        <div class="booking2 d-none">
+          <div class="loader"></div>
+          <div>Optimizing Cost...</div>
+        </div>
+      </div>
+      <div class="phase-5 d-none">
+        <div class="location">
+          <div>A</div>
+          <div>B</div>
+          <div>C</div>
+          <div>D</div>
+          <div>E</div>
+          <div>F</div>
+          <div>G</div>
+          <div>H</div>
+          <div>I</div>
+          <div>J</div>
+          <div>K</div>
+        </div>
+        <div class="booking2"></div>
+        <div class="not-booking2"></div>
+      </div>
+    </div>
+  </body>
+  <script src="./main.js"></script>
+</html>

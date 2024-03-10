@@ -1,0 +1,382 @@
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background: #31275c;
+  color: white;
+  font-size: 20px;
+  font-family: monospace;
+  overflow: hidden;
+}
+.custom-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+.total-fare-decided {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  color: red;
+}
+input {
+  border: none !important;
+  border-bottom: 1px solid white !important ;
+  padding: 10px;
+  padding-left: 0;
+  width: 100%;
+  background: unset;
+  color: white;
+}
+.ans {
+  margin-top: 15px;
+}
+.submit-button {
+  display: flex;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  margin-top: 9px;
+  padding: 10px;
+  background: #3b4b83;
+  width: 100%;
+}
+.d-none {
+  display: none;
+}
+.tot {
+  color: white;
+  font-family: sans-serif;
+}
+.fareDecided {
+  /* display: inline-block; */
+  animation: pulse 2000ms infinite;
+}
+.actual-price-cut.fareDecided {
+  animation: pulse 2000ms infinite;
+}
+.red {
+  color: red;
+  border: 1px solid red;
+  padding: 10px;
+}
+.yellow {
+  color: #c4acd0;
+  padding: 10px;
+}
+.green {
+  color: #7db572;
+  border: 1px solid;
+  padding: 10px;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.1, 1.1);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+.location {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+.location div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border: 1px solid;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.reverse-fair {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
+  flex-direction: column;
+  gap: 10px;
+}
+.reverse-fair .red,
+.reverse-fair .green {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loader:not(.d-none) {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #fff;
+  border-bottom-color: #ff3d00;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.per-km-price {
+  position: absolute;
+  left: 10px;
+  top: 20px;
+}
+
+.phase-4 .booking1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.border-r50 {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  text-align: center;
+  padding: 5px;
+}
+
+.ray {
+  width: 2px;
+  height: 2px;
+  background-color: red;
+  position: absolute;
+  border-radius: 50%;
+  animation: moveRay 2s linear forwards;
+}
+
+@keyframes moveRay {
+  0% {
+    left: 0;
+    top: 0;
+  }
+  100% {
+    left: 100%;
+    top: calc(100% - 100px); /* Adjust the height of the parabolic path */
+  }
+}
+.capacity-truck-total {
+  position: absolute;
+  top: 20px;
+  left: 20%;
+}
+.actual-price-cut {
+  position: absolute;
+  top: 72px;
+  right: 32px;
+
+  text-decoration: line-through;
+  text-decoration-color: red;
+  color: wheat;
+}
+.total-distance-decided {
+  position: absolute;
+  bottom: 245px;
+  left: -235px;
+  color: aqua;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 10px;
+  transform: rotate(-90deg);
+}
+.cannot-choose-this-city {
+  opacity: 0.2;
+  cursor: no-drop !important;
+}
+.cursor-no {
+  cursor: no-drop !important;
+}
+.discount-got:not(.d-none) {
+  position: absolute;
+  bottom: -140px;
+  left: 0;
+  /* top: 50%; */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid;
+  padding: 43px;
+  border-radius: 2px;
+  font-size: 45px;
+  background: green;
+  color: #bbc8bf;
+
+  transition: transform 0.3s ease-in-out;
+}
+
+.discount-got.translate {
+  transform: translateY(-140px);
+}
+.parabola {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 1px solid blue;
+  overflow: hidden;
+}
+
+.parabolic-curve {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+.multiple-booking-city-choose:not(.d-none) {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.multiple-booking-location {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  gap: 20px;
+  border: 1px solid;
+  padding: 10px;
+}
+.multiple-booking-location .location {
+  margin-top: auto;
+}
+.multiple-booking-capacity-container:not(.d-none) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  gap: 10px;
+  transition: display 0.3s ease-in-out;
+}
+.multiple-booking-capacity-container::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #222924;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.5;
+}
+.multiple-booking-capacity-container .capacity-content {
+  width: 459px;
+  background-color: #262429;
+  opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  height: 300px;
+  flex-direction: column;
+  padding: 42px;
+  gap: 10px;
+  border-radius: 7px;
+}
+.choosen-capacity {
+  border: 1px solid;
+  padding: 2px;
+  color: #91a9a5;
+}
+.price-for-this-distance {
+  border: 1px solid;
+  padding: 2px;
+  color: wheat;
+}
+.city-between {
+  font-size: 17px;
+}
+.multiple-booking-city-choose .loader {
+  width: 23px;
+  height: 23px;
+}
+.phase-4 .booking2:not(.d-none) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  gap: 20px;
+}
+.phase-4 .booking2:not(.d-none)::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #222924;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.5;
+}
+.phase-5 .booking2,
+.phase-5 .not-booking2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 19px;
+}
+.phase-5 .booking2 div:not(:first-child),
+.phase-5 .not-booking2 div:not(:first-child) {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border: 1px solid;
+  padding: 13px;
+}
+.phase-5 .not-booking2 div:not(:first-child) {
+  border: 1px solid #d69c9c;
+}
+.phase-5 .not-booking2 div:first-child {
+  color: #d69c9c;
+}
+.phase-5 .booking2 div:not(:first-child) span,
+.phase-5 .not-booking2 div:not(:first-child) span {
+  border: 1px dotted;
+  padding: 5px;
+}
+.phase-5 .not-booking2 {
+  margin-top: 72px;
+}
+.phase-5 .location {
+  margin-bottom: 24px;
+}
