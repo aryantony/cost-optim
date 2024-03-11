@@ -199,58 +199,7 @@ phase2.querySelectorAll('.submit-button').forEach(function (button) {
         }
 
         function startOptimizingCostForMultipleBookings() {
-          //   function knapsackMaximizeCost1(bookings, currentIndex, currentCapacity, maxCapacity, unloadVector, bookingChoosed, costRemaining) {
-          //     if (currentIndex >= bookings.length) {
-          //       return
-          //     }
-
-          //     let notTake = knapsackMaximizeCost(bookings, currentIndex + 1, currentCapacity, maxCapacity, unloadVector, memo)
-          //     if (notTake === costRemaining) {
-          //       bookingChoosed[currentIndex] = false
-          //       knapsackMaximizeCost1(bookings, currentIndex + 1, currentCapacity, maxCapacity, unloadVector, bookingChoosed, costRemaining)
-          //     } else {
-          //       bookingChoosed[currentIndex] = true
-          //       let vectorCurrentIdx = parseInt(bookings[currentIndex].startCity.charCodeAt(0) - 64)
-          //       let unloadedSum = 0
-          //       for (let i = vectorCurrentIdx; i < 11; ++i) {
-          //         unloadedSum += unloadVector[i]
-          //       }
-          //       let Take = 0
-          //       if (currentCapacity - unloadedSum + bookings[currentIndex].capacity <= maxCapacity) {
-          //         unloadVector[parseInt(bookings[currentIndex].endCity.charCodeAt(0) - 64)] += bookings[currentIndex].capacity
-          //         Take = bookings[currentIndex].cost + knapsackMaximizeCost(bookings, currentIndex + 1, currentCapacity + bookings[currentIndex].capacity, maxCapacity, unloadVector, memo)
-          //       }
-          //       knapsackMaximizeCost1(bookings, currentIndex + 1, currentCapacity, maxCapacity, unloadVector, bookingChoosed, costRemaining - Take)
-          //     }
-          //   }
           let ans = []
-          function knapsackMaximizeCost(bookings, currentIndex, currentCapacity, maxCapacity, unloadVector, memo, bookingChoosed) {
-            if (currentIndex >= bookings.length) {
-              ans.push(bookingChoosed)
-              bookingChoosed = new Array(11).fill(0)
-              return 0
-            }
-            // if (memo[currentIndex][currentCapacity][unloadVector] !== -1) {
-            //   return memo[currentIndex][currentCapacity][unloadVector]
-            // }
-            bookingChoosed[currentIndex] = false
-            let notTake = knapsackMaximizeCost(bookings, currentIndex + 1, currentCapacity, maxCapacity, unloadVector, memo, bookingChoosed)
-
-            let Take = 0
-            let vectorCurrentIdx = parseInt(bookings[currentIndex].startCity.charCodeAt(0) - 64)
-            let unloadedSum = 0
-            for (let i = vectorCurrentIdx; i < 11; ++i) {
-              unloadedSum += unloadVector[i]
-            }
-            if (currentCapacity - unloadedSum + bookings[currentIndex].capacity <= maxCapacity) {
-              unloadVector[parseInt(bookings[currentIndex].endCity.charCodeAt(0) - 64)] += bookings[currentIndex].capacity
-              bookingChoosed[currentIndex] = true
-              Take = bookings[currentIndex].cost + knapsackMaximizeCost(bookings, currentIndex + 1, currentCapacity + bookings[currentIndex].capacity, maxCapacity, unloadVector, memo, bookingChoosed)
-            }
-
-            return Math.max(Take, notTake)
-          }
-
           bookings.sort((a, b) => {
             if (a.startCity < b.startCity) return 1
             if (a.startCity > b.startCity) return -1
@@ -258,42 +207,56 @@ phase2.querySelectorAll('.submit-button').forEach(function (button) {
           })
 
           const maxCapacity = parseInt(truckCapacity)
-
           let unloadVector = new Array(11).fill(0)
           let memo = []
-          //   let totalCapacityPossible = 0
-          //   for (let i = 0; i < bookings.length; ++i) {
-          //     totalCapacityPossible += bookings[i].capacity
-          //   }
-          //   for (let i = 0; i < bookings.length; i++) {
-          //     memo[i] = []
-
-          //     for (let j = 0; j <= maxCapacity; j++) {
-          //       memo[i][j] = []
-
-          //       let v = new Array(11).fill(0) // Create an unloadVector with 11 zeroes
-
-          //       // Convert unloadVector to a string to use as a key
-          //       let unloadVectorKey = v.toString()
-
-          //       // Initialize the memoization entry for this combination
-          //       memo[i][j][unloadVectorKey] = -1
-          //     }
-          //   }
 
           let bookingChoosed = []
           for (let i = 0; i < bookings.length; ++i) {
             console.log(bookings[i])
             bookingChoosed.push(false)
           }
-          const maxCost = knapsackMaximizeCost(bookings, 0, 0, maxCapacity, unloadVector, memo, bookingChoosed)
-          unloadVector = new Array(11).fill(0)
-          //   knapsackMaximizeCost1(bookings, 0, 0, maxCapacity, unloadVector, bookingChoosed)
+          function knapsackMaximizeCost(bookings, currentIndex, currentCapacity, maxCapacity, unloadVector, bookingChoosed, ans) {
+            if (currentIndex >= bookings.length) {
+              console.log('each Booking Choosed= ', bookingChoosed)
+              console.log(bookingChoosed.length)
+              for (let i = 0; i < bookingChoosed.length; ++i) {
+                console.log(bookingChoosed[i])
+              }
+              ans.push([...bookingChoosed])
+              console.log('ans= ', ans)
+              return 0
+            }
+
+            let Take = 0
+            let vectorCurrentIdx = parseInt(bookings[currentIndex].startCity.charCodeAt(0) - 65)
+            let unloadedSum = 0
+            for (let i = vectorCurrentIdx; i < 11; ++i) {
+              unloadedSum += unloadVector[i]
+            }
+
+            if (currentCapacity - unloadedSum + bookings[currentIndex].capacity <= maxCapacity) {
+              console.log(unloadVector)
+              console.log(bookings[currentIndex].startCity, bookings[currentIndex].endCity, currentCapacity, unloadedSum, bookings[currentIndex].capacity, maxCapacity, parseInt(bookings[currentIndex].endCity.charCodeAt(0) - 65))
+              unloadVector[parseInt(bookings[currentIndex].endCity.charCodeAt(0) - 65)] += bookings[currentIndex].capacity
+              bookingChoosed[currentIndex] = true
+              Take = bookings[currentIndex].cost + knapsackMaximizeCost(bookings, currentIndex + 1, currentCapacity + bookings[currentIndex].capacity, maxCapacity, unloadVector, bookingChoosed, ans)
+              bookingChoosed[currentIndex] = false
+              unloadVector[parseInt(bookings[currentIndex].endCity.charCodeAt(0) - 65)] -= bookings[currentIndex].capacity
+            }
+
+            let notTake = knapsackMaximizeCost(bookings, currentIndex + 1, currentCapacity, maxCapacity, unloadVector, bookingChoosed, ans)
+
+            return Math.max(Take, notTake)
+          }
+
+          const maxCost = knapsackMaximizeCost(bookings, 0, 0, maxCapacity, unloadVector, bookingChoosed, ans)
+
           console.log('Maximum Cost:', maxCost)
           console.log('Bookings Chosen:', ans)
           for (let i = 0; i < ans.length; ++i) {
             let cost = 0
             for (let j = 0; j < ans[i].length; ++j) {
+              console.log(ans[i][j])
               if (ans[i][j]) {
                 cost += bookings[j].cost
               }
@@ -304,20 +267,26 @@ phase2.querySelectorAll('.submit-button').forEach(function (button) {
               booking2.innerHTML = `
                     <div>The Following Bookings are chosen</div>
                 `
+              let gg = 1
+              notBooking2.innerHTML = `
+                <div>The Following Bookings are not chosen</div>
+            `
               for (let k = 0; k < ans[i].length; ++k) {
                 if (ans[i][k]) {
-                  console.log(bookings[k])
+                  console.log('chosen= ', bookings[k])
                   let div = document.createElement('div')
                   div.innerHTML = `<span>Booking-${bookings[k].bookingNumber}</span> city <span class='red border-r50'> ${bookings[k].startCity}</span> to city <span class='green border-r50'>${bookings[k].endCity}</span> <span> ${bookings[k].capacity} KG</span> <span>Rs. ${bookings[k].cost}</span>`
                   booking2.appendChild(div)
                 } else {
-                  notBooking2.innerHTML = `
-                    <div>The Following Bookings are not chosen</div>
-                `
+                  console.log('Notchosen= ', bookings[k])
+                  gg = 0
                   let div = document.createElement('div')
                   div.innerHTML = `<span>Booking-${bookings[k].bookingNumber}</span> city <span class='red border-r50'> ${bookings[k].startCity}</span> to city <span class='green border-r50'>${bookings[k].endCity}</span> <span> ${bookings[k].capacity} KG</span> <span>Rs. ${bookings[k].cost}</span>`
                   notBooking2.appendChild(div)
                 }
+              }
+              if (gg) {
+                notBooking2.innerHTML = ` `
               }
               break
             }
@@ -356,6 +325,9 @@ function finalCalculationCost(maxCost) {
       document.querySelector('.discount-got').classList.remove('d-none')
       document.querySelector('.discount-got').innerHTML = `You got discount of Rs. ${actualPrice - targetValue}`
       document.querySelector('.discount-got').classList.add('translate')
+      setTimeout(() => {
+        document.querySelector('.discount-got').classList.add('d-none')
+      }, 1500)
     }
     if (parseInt(costDisplay.textContent) < (actualPrice * 2) / 3) {
       document.querySelector('.total-fare-decided').classList.add('green')
