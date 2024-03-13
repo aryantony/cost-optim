@@ -1,0 +1,26 @@
+.model {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  /* padding: 5px; */
+  overflow-x: hidden;
+}
+.model-view {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.model-view h1 {
+  border: 2px dashed #9a949c;
+  padding: 7px;
+  width: 50vw;
+  text-align: center;
+}

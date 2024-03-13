@@ -215,40 +215,33 @@ phase2.querySelectorAll('.submit-button').forEach(function (button) {
             console.log(bookings[i])
             bookingChoosed.push(false)
           }
+
           function knapsackMaximizeCost(bookings, currentIndex, currentCapacity, maxCapacity, unloadVector, bookingChoosed, ans) {
             if (currentIndex >= bookings.length) {
-              console.log('each Booking Choosed= ', bookingChoosed)
-              console.log(bookingChoosed.length)
-              for (let i = 0; i < bookingChoosed.length; ++i) {
-                console.log(bookingChoosed[i])
-              }
-              ans.push([...bookingChoosed])
-              console.log('ans= ', ans)
+              //If we checked all the booking and now we are crossing last index
+              ans.push([...bookingChoosed]) //Accepting all Bookings which follow constraints and pushing in ans vector
               return 0
             }
 
+            //Lets take the current Booking
             let Take = 0
             let vectorCurrentIdx = parseInt(bookings[currentIndex].startCity.charCodeAt(0) - 65)
             let unloadedSum = 0
             for (let i = vectorCurrentIdx; i < 11; ++i) {
-              unloadedSum += unloadVector[i]
+              unloadedSum += unloadVector[i] // if we are taking kth booking let's calculate how many times we have unloaded
             }
-
+            // Current Capacity of Load in Truck = currentCapacity - unloadedSum
             if (currentCapacity - unloadedSum + bookings[currentIndex].capacity <= maxCapacity) {
-              console.log(unloadVector)
-              console.log(bookings[currentIndex].startCity, bookings[currentIndex].endCity, currentCapacity, unloadedSum, bookings[currentIndex].capacity, maxCapacity, parseInt(bookings[currentIndex].endCity.charCodeAt(0) - 65))
+              // checking the second constraint
               unloadVector[parseInt(bookings[currentIndex].endCity.charCodeAt(0) - 65)] += bookings[currentIndex].capacity
-              bookingChoosed[currentIndex] = true
+              bookingChoosed[currentIndex] = true // Kth booking is choosen
               Take = bookings[currentIndex].cost + knapsackMaximizeCost(bookings, currentIndex + 1, currentCapacity + bookings[currentIndex].capacity, maxCapacity, unloadVector, bookingChoosed, ans)
-              bookingChoosed[currentIndex] = false
-              unloadVector[parseInt(bookings[currentIndex].endCity.charCodeAt(0) - 65)] -= bookings[currentIndex].capacity
+              bookingChoosed[currentIndex] = false // Kth Booking is not chosen
+              unloadVector[parseInt(bookings[currentIndex].endCity.charCodeAt(0) - 65)] -= bookings[currentIndex].capacity // if we don't choose Kth booking then no need to add on unload vector
             }
-
             let notTake = knapsackMaximizeCost(bookings, currentIndex + 1, currentCapacity, maxCapacity, unloadVector, bookingChoosed, ans)
-
-            return Math.max(Take, notTake)
+            return Math.max(Take, notTake) // Took that values which will give max cost addition to final answer
           }
-
           const maxCost = knapsackMaximizeCost(bookings, 0, 0, maxCapacity, unloadVector, bookingChoosed, ans)
 
           console.log('Maximum Cost:', maxCost)
